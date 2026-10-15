@@ -24,7 +24,7 @@ From the extracted repository root:
 python reproduce.py --out reproduced
 ```
 
-The command runs 79 unit-test methods (with additional mutation and identifier subcases) and four deterministic campaigns through `run_bounded.py`, then compares every regenerated scientific JSON/JSONL value with `results/`. Only the environment-dependent `measurements` fields inside campaign summaries are ignored. The report is `reproduced/reproduction.json`; success means `"status": "pass"`. Use a fresh output directory; an existing directory is never deleted automatically. The shipped resource records belong to the prior 66-method run; they are not timings of the expanded suite.
+The command runs 79 unit-test methods (with additional mutation and identifier subcases) and four deterministic campaigns through `run_bounded.py`, then compares every regenerated scientific JSON/JSONL value with `results/`. Only the environment-dependent `measurements` fields inside campaign summaries are ignored. The report is `reproduced/reproduction.json`; success means `"status": "pass"`. Use a fresh output directory inside this artifact root, outside `results/`, such as `reproduced`. An existing directory is rejected unless `--keep` is supplied; `--keep` reruns the commands there without deleting the directory. The shipped resource records belong to the prior 66-method run; they are not timings of the expanded suite.
 
 The retained Ubuntu 24.04/Python 3.12.14 execution passes its 73 methods and all four campaigns. The 14 scientific files (4,415 JSONL records) match the retained values, and both generated manuscript tables match bytewise. That run's measurements and actual test footer are in `results/measurements/current-linux/`; they do not replace the historical resource files or measure the 79-method suite. Each command is bounded to one core, 3 GiB address space, 40 CPU seconds and 45 wall seconds.
 
@@ -40,7 +40,7 @@ This writes `paper-data/validation-macros.tex` and `paper-data/validation-table.
 
 ## Checker examples
 
-Infer and replay an admitted fixed graph:
+Infer and replay an admitted fixed graph. For `check` and `refine`, `--certificate` is an output path and replaces an existing file; use a new disposable path, not an input or shipped certificate. A semantic rejection exits 1; malformed input, invalid certificate evidence, I/O errors, or an oracle limit exit 2.
 
 ```sh
 python -m ftypes.cli check inputs/static/worked-safe.json \
