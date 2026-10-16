@@ -33,11 +33,16 @@ jobs:
             ulimit -t 240
             ulimit -v 3145728
             python -B .github/scripts/check_repository.py > repository-check.json
+            python -B tests/regression_payload_age.py
             python -B reproduce.py --out scientific-output
             python -B make_paper_data.py --out paper-data-check
             cmp paper-data/validation-macros.tex paper-data-check/validation-macros.tex
             cmp paper-data/validation-table.tex paper-data-check/validation-table.tex
           '
+      - name: Regenerate the semantic schematics
+        run: |
+          python -m pip install -r requirements-figures.txt
+          python -B figures/check_figures.py
       - name: Preserve raw outputs even when a check fails
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

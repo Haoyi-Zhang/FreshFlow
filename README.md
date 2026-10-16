@@ -38,6 +38,18 @@ python make_paper_data.py
 
 This writes `paper-data/validation-macros.tex` and `paper-data/validation-table.tex` from the shipped summaries.
 
+## Additional checks and schematics
+
+The standalone `tests/regression_payload_age.py` checks the multi-payload bound:
+a zero-delay pair with births 0 and -2 has age 2, requiring the maximum of
+both conditional payload envelopes rather than the envelope of an arbitrary
+included payload. It is run separately from the retained 79-method census.
+
+The three manuscript schematics are direct Python vector drawings. Install
+`requirements-figures.txt`, run `python figures/draw_schematics.py`, and check
+fresh regeneration with `python figures/check_figures.py`. These optional
+drawing dependencies do not enter the standard-library semantic campaigns.
+
 ## Checker examples
 
 Infer and replay an admitted fixed graph. For `check` and `refine`, `--certificate` is an output path and replaces an existing file; use a new disposable path, not an input or shipped certificate. A semantic rejection exits 1; malformed input, invalid certificate evidence, I/O errors, or an oracle limit exit 2.
