@@ -120,7 +120,7 @@ def residual(out):
     d.box('v1',5.3,4.25,.95,.95,'$v_1$',shape='circle')
     d.box('v2',5.3,1.95,.95,.95,'$v_2$',shape='circle')
     d.edge('u','v1','e','w');d.edge('u','v2','e','w')
-    d.text(4.4,4.5,'received');d.text(4.4,1.6,'in flight')
+    d.text(4.0,4.7,'received');d.text(4.0,1.35,'in flight')
     d.line(((2.8,.8),(2.8,5.0)),dashed=True)
     d.text(2.8,5.35,r'cut $\tau$')
     d.box('buffered',10.0,4.25,4.7,1.0,'buffered port\nready 0')
@@ -138,6 +138,5 @@ if __name__ == '__main__':
     args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=True)
     for renderer in (data_gate,row_cover,residual):
         renderer(args.output)
-
 
 
